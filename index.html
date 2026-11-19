@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="A calm, offline-first reading space for books, study material and vocabulary.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Jus Reader</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Jus Reader home"><span class="brand-mark">J</span><span>JUS READER</span></a>
+      <nav class="nav">
+        <button class="nav-item active" data-view="library"><span>▦</span> Library</button>
+        <button class="nav-item" data-view="vocabulary"><span>Aa</span> Vocabulary <span class="nav-count" id="vocabCount">0</span></button>
+        <button class="nav-item" data-view="notes"><span>✎</span> Notes & highlights</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="storage-note"><span class="dot"></span><span>Stored on this device</span></div>
+        <button class="quiet-btn" id="installBtn" hidden>＋ Install app</button>
+        <button class="quiet-btn" id="themeToggle">◐ Switch appearance</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="breadcrumb" id="breadcrumb">Your library</div>
+        <div class="top-actions">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search your library"></label>
+          <button class="primary-btn" id="addBookBtn">＋ Add book</button>
+          <input id="fileInput" type="file" accept=".epub,.pdf,.txt,.html,.htm,.xhtml" multiple hidden>
+        </div>
+      </header>
+
+      <section class="view active" id="libraryView">
+        <div class="welcome">
+          <div><p class="eyebrow">A LITTLE READING EVERY DAY</p><h1>Your reading space.</h1><p class="subtle">Books, study material and new words — all in one quiet place.</p></div>
+          <div class="stats">
+            <div class="stat"><strong id="bookStat">0</strong><span>Books added</span></div>
+            <div class="stat"><strong id="minutesStat">0</strong><span>Minutes read</span></div>
+            <div class="stat"><strong id="wordsStat">0</strong><span>Saved words</span></div>
+          </div>
+        </div>
+        <section class="section-block" id="continueSection">
+          <div class="section-heading"><div><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Continue reading</h2></div></div>
+          <div id="continueCard" class="continue-empty">Your recently opened books will appear here.</div>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2>All books</h2></div><span class="muted small" id="bookCountLabel">0 items</span></div>
+          <div class="book-grid" id="bookGrid"></div>
+          <div class="empty-state" id="emptyState"><div class="empty-icon">▤</div><h3>Your library is waiting</h3><p>Add an EPUB, PDF, TXT or HTML file to start reading. Your files stay in this browser on this device.</p><button class="primary-btn" id="emptyAddBtn">Add your first book</button></div>
+        </section>
+      </section>
+
+      <section class="view" id="readerView">
+        <div class="reader-toolbar">
+          <button class="quiet-btn" id="backLibrary">← Library</button>
+          <div class="reader-title" id="readerTitle">Reading</div>
+          <div class="reader-tools">
+            <button class="icon-btn" id="fontDown" title="Decrease text size">A−</button>
+            <button class="icon-btn" id="fontUp" title="Increase text size">A+</button>
+            <select id="readerTheme" aria-label="Reading theme"><option value="paper">Paper</option><option value="sepia">Sepia</option><option value="dark">Dark</option></select>
+            <button class="icon-btn" id="bookmarkBtn" title="Bookmark this position">♧</button>
+            <button class="icon-btn" id="readerMenuBtn" title="Reading options">•••</button>
+          </div>
+        </div>
+        <div class="reader-layout">
+          <aside class="reader-side">
+            <div class="reader-side-label">IN THIS BOOK</div>
+            <div id="tocList" class="toc-list"><p class="muted small">Contents will appear here when available.</p></div>
+            <div class="reader-side-label spaced">YOUR PROGRESS</div>
+            <div class="progress-track"><span id="progressFill"></span></div>
+            <p class="muted small" id="progressLabel">0% completed</p>
+            <button class="quiet-btn full" id="addNoteBtn">＋ Add note</button>
+          </aside>
+          <article class="reading-area" id="readingArea" data-theme="paper">
+            <div id="readerContent" class="reader-content"><p>Choose a book from your library.</p></div>
+          </article>
+        </div>
+        <div class="reader-footer"><button class="quiet-btn" id="prevPage">← Previous</button><span id="pageLabel">Ready to read</span><button class="quiet-btn" id="nextPage">Next →</button></div>
+      </section>
+
+      <section class="view" id="vocabularyView">
+        <div class="page-heading"><p class="eyebrow">GROW YOUR WORD BANK</p><h1>Vocabulary</h1><p class="subtle">Words you save while reading, ready for revision.</p></div>
+        <div id="vocabularyList" class="data-list"></div>
+        <div class="empty-state" id="vocabEmpty"><div class="empty-icon">Aa</div><h3>No saved words yet</h3><p>While reading, select a word and use “Look up / save word”.</p></div>
+      </section>
+
+      <section class="view" id="notesView">
+        <div class="page-heading"><p class="eyebrow">YOUR PERSONAL STUDY DESK</p><h1>Notes & highlights</h1><p class="subtle">A collection of useful passages and thoughts from your reading.</p></div>
+        <div id="notesList" class="data-list"></div>
+        <div class="empty-state" id="notesEmpty"><div class="empty-icon">✎</div><h3>Nothing saved yet</h3><p>Highlight text or add a note while reading.</p></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="selection-popover" id="selectionPopover">
+    <button id="highlightSelection">Highlight</button><button id="lookupSelection">Look up / save word</button><button id="noteSelection">Add note</button>
+  </div>
+  <dialog id="noteDialog" class="modal">
+    <form method="dialog" id="noteForm"><div class="modal-head"><h3 id="noteDialogTitle">Add a note</h3><button class="icon-btn" value="cancel" aria-label="Close">×</button></div><p class="muted small" id="noteContext"></p><textarea id="noteText" rows="5" placeholder="Write your thought or explanation…"></textarea><div class="modal-actions"><button class="quiet-btn" value="cancel">Cancel</button><button class="primary-btn" id="saveNoteBtn" value="save">Save note</button></div></form>
+  </dialog>
+  <dialog id="wordDialog" class="modal">
+    <form method="dialog"><div class="modal-head"><h3>Save vocabulary</h3><button class="icon-btn" value="cancel" aria-label="Close">×</button></div><label class="field-label" for="wordInput">Word</label><input id="wordInput" class="text-input" required><label class="field-label" for="meaningInput">Meaning / your explanation</label><textarea id="meaningInput" rows="3" placeholder="Add meaning, example or translation…"></textarea><div class="modal-actions"><button class="quiet-btn" value="cancel">Cancel</button><button class="primary-btn" id="saveWordBtn" value="save">Save word</button></div></form>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
