@@ -33,7 +33,7 @@
         <div class="top-actions">
           <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search your library"></label>
           <button class="primary-btn" id="addBookBtn">＋ Add book</button>
-          <input id="fileInput" type="file" accept=".epub,.pdf,.txt,.html,.htm,.xhtml" multiple hidden>
+          <input id="fileInput" type="file" accept=".epub,.pdf,.docx,.txt,.html,.htm,.xhtml,.rtf,.md,.markdown,.csv,.json,.xml" multiple hidden>
         </div>
       </header>
 
@@ -53,7 +53,7 @@
         <section class="section-block">
           <div class="section-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2>All books</h2></div><span class="muted small" id="bookCountLabel">0 items</span></div>
           <div class="book-grid" id="bookGrid"></div>
-          <div class="empty-state" id="emptyState"><div class="empty-icon">▤</div><h3>Your library is waiting</h3><p>Add an EPUB, PDF, TXT or HTML file to start reading. Your files stay in this browser on this device.</p><button class="primary-btn" id="emptyAddBtn">Add your first book</button></div>
+          <div class="empty-state" id="emptyState"><div class="empty-icon">▤</div><h3>Your library is waiting</h3><p>Add PDF, DOCX, EPUB, TXT, RTF, Markdown, CSV, JSON, XML or HTML files to start reading. Your files stay in this browser on this device.</p><button class="primary-btn" id="emptyAddBtn">Add your first book</button></div>
         </section>
       </section>
 
@@ -65,7 +65,7 @@
             <button class="icon-btn" id="fontDown" title="Decrease text size">A−</button>
             <button class="icon-btn" id="fontUp" title="Increase text size">A+</button>
             <select id="readerTheme" aria-label="Reading theme"><option value="paper">Paper</option><option value="sepia">Sepia</option><option value="dark">Dark</option></select>
-            <button class="icon-btn" id="bookmarkBtn" title="Bookmark this position">♧</button>
+            <button class="icon-btn" id="bookmarkBtn" title="Bookmark this position">♧</button><button class="icon-btn" id="speakBtn" title="Read this page aloud">▶</button>
             <button class="icon-btn" id="readerMenuBtn" title="Reading options">•••</button>
           </div>
         </div>
@@ -92,7 +92,7 @@
       </section>
 
       <section class="view" id="notesView">
-        <div class="page-heading"><p class="eyebrow">YOUR PERSONAL STUDY DESK</p><h1>Notes & highlights</h1><p class="subtle">A collection of useful passages and thoughts from your reading.</p></div>
+        <div class="page-heading"><p class="eyebrow">YOUR PERSONAL STUDY DESK</p><h1>Notes & highlights</h1><p class="subtle">A collection of useful passages and thoughts from your reading.</p><button class="primary-btn" id="exportNotesBtn">↓ Export notes & vocabulary</button></div>
         <div id="notesList" class="data-list"></div>
         <div class="empty-state" id="notesEmpty"><div class="empty-icon">✎</div><h3>Nothing saved yet</h3><p>Highlight text or add a note while reading.</p></div>
       </section>
@@ -100,7 +100,7 @@
   </div>
 
   <div class="selection-popover" id="selectionPopover">
-    <button id="highlightSelection">Highlight</button><button id="lookupSelection">Look up / save word</button><button id="noteSelection">Add note</button>
+    <button id="highlightSelection">Highlight</button><button id="lookupSelection">Look up / save word</button><button id="explainSelection">Simplify sentence</button><button id="noteSelection">Add note</button>
   </div>
   <dialog id="noteDialog" class="modal">
     <form method="dialog" id="noteForm"><div class="modal-head"><h3 id="noteDialogTitle">Add a note</h3><button class="icon-btn" value="cancel" aria-label="Close">×</button></div><p class="muted small" id="noteContext"></p><textarea id="noteText" rows="5" placeholder="Write your thought or explanation…"></textarea><div class="modal-actions"><button class="quiet-btn" value="cancel">Cancel</button><button class="primary-btn" id="saveNoteBtn" value="save">Save note</button></div></form>
@@ -111,6 +111,7 @@
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
